@@ -1,0 +1,12 @@
+<div class="message">
+  <p>
+    {{@message.sender}}
+  </p>
+  <aside>
+    <p>
+      {{@message.content}}
+    </p>
+  </aside>
+  <LinkTo class="button" @route="message" @model={{@message}}>Detailed</LinkTo>
+  <button type="button" {{on "click" this.delete}}>Delete</button>
+</div>
