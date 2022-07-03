@@ -1,0 +1,29 @@
+{
+  "name": "emberblog-api",
+  "description": "",
+  "version": "",
+  "private": true,
+  "scripts": {
+    "test": "env NODE_ENV=test mocha ./tests/unit-tests --recursive --file ./tests/unit-tests/bootstrap.js",
+    "cover": "env NODE_ENV=test istanbul cover _mocha ./tests/unit-tests --recursive --file ./tests/unit-tests/bootstrap.js",
+    "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
+  },
+  "dependencies": {
+    "@onehilltech/blueprint": "^4.65.11",
+    "@onehilltech/blueprint-mongodb": "^4.65.12",
+    "cors": "^2.8.5",
+    "pug": "^2.0.3"
+  },
+  "license": "",
+  "engines": {
+    "node": ">=6.0.0",
+    "npm": ">=3.0.0"
+  },
+  "keywords": [
+    "blueprint"
+  ],
+  "devDependencies": {
+    "@onehilltech/blueprint-cli": "^4.64.1",
+    "@onehilltech/blueprint-testing": "^4.64.1"
+  }
+}
