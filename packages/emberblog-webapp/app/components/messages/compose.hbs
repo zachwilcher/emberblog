@@ -1,9 +1,9 @@
 <div class="messages-compose">
   <Input
-    @value={{@draft}}
+    @value={{this.draft}}
     placeholder="Send a message"
   />
   <aside>
-    <button type="button" {{on "click" @submit}}>Send</button>
+    <button type="button" {{on "click" this.submit}}>Send</button>
   </aside>
 </div>

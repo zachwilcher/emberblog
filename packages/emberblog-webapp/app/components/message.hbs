@@ -4,9 +4,18 @@
   </p>
   <aside>
     <p>
-      {{@message.content}}
+  {{#if this.editable}}
+    <Input @value={{@message.content}} />
+  {{else}}
+    {{@message.content}}
+  {{/if}}
     </p>
   </aside>
   <LinkTo class="button" @route="message" @model={{@message}}>Detailed</LinkTo>
   <button type="button" {{on "click" this.delete}}>Delete</button>
+  {{#if this.editable}}
+    <button type="button" {{on "click" this.update}}>Save</button>
+  {{else}}
+    <button type="button" {{on "click" (fn this.setEditable true)}}>Edit</button>
+  {{/if}}
 </div>

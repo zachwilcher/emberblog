@@ -9,7 +9,7 @@ module('Unit | Model | message', function (hooks) {
     let store = this.owner.lookup('service:store');
     let model = store.createRecord('message', {
       sender: 'memememe',
-      content: 'HIIIIII!'
+      content: 'HIIIIII!',
     });
     assert.equal(model.get('sender'), 'memememe');
     assert.equal(model.get('content'), 'HIIIIII!');

@@ -1,5 +1,4 @@
 import DS from 'ember-data';
-import MongoDB from 'ember-blueprint-data/mixins/serializers/mongodb'
+import MongoDB from 'ember-blueprint-data/mixins/serializers/mongodb';
 
-export default DS.RESTSerializer.extend (MongoDB, {
-});
+export default DS.RESTSerializer.extend(MongoDB, {});

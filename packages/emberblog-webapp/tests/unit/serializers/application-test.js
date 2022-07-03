@@ -11,5 +11,4 @@ module('Unit | Serializer | application', function (hooks) {
 
     assert.ok(serializer);
   });
-
 });
