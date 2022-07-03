@@ -8,7 +8,7 @@ const options = {
 };
 
 const schema = new Schema({
-    sender: { type: String, trim: true },
+    sender: { type: String, trim: true, required: true },
     content: { type: String }
 }, options);
 

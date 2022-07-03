@@ -1,9 +1,10 @@
 <div class="messages-compose">
   <Input
+    data-test-input
     @value={{this.draft}}
     placeholder="Send a message"
   />
   <aside>
-    <button type="button" {{on "click" this.submit}}>Send</button>
+    <button data-test-button type="button" {{on "click" this.submit}}>Send</button>
   </aside>
 </div>
