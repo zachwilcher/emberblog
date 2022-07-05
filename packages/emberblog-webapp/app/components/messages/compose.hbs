@@ -1,10 +1,10 @@
 <div data-test-compose class="messages-compose">
-  <Input
+  <MdcTextarea
     data-test-compose-input
     @value={{this.draft}}
     placeholder="Send a message"
   />
   <aside>
-    <button data-test-compose-button type="button" {{on "click" this.submit}}>Send</button>
+    <MdcButton data-test-compose-button {{on "click" this.submit}} @label="Send" />
   </aside>
 </div>

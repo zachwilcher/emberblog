@@ -11,11 +11,12 @@
     </p>
   {{/if}}
   </aside>
-  <LinkTo data-test-message-detailed-link class="button" @route="message" @model={{@message}}>Detailed</LinkTo>
-  <button data-test-message-delete-button type="button" {{on "click" this.delete}}>Delete</button>
+  <MdcButtonLinkTo data-test-message-detailed-link @route="message" @model={{@message}} @label="Detailed" />
+
+  <MdcButton data-test-message-delete-button @label="Delete" {{on "click" this.delete}} />
   {{#if this.editable}}
-    <button data-test-message-save-button type="button" {{on "click" this.update}}>Save</button>
+    <MdcButton data-test-message-save-button @label="Save" {{on "click" this.update}} />
   {{else}}
-    <button data-test-message-edit-button type="button" {{on "click" (fn this.setEditable true)}}>Edit</button>
+    <MdcButton data-test-message-edit-button @label="Edit" {{on "click" (fn this.setEditable true)}} />
   {{/if}}
 </div>
