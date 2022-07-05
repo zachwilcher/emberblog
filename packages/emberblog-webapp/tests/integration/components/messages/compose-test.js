@@ -13,11 +13,9 @@ module('Integration | Component | messages/compose', function (hooks) {
     await render(hbs`<Messages::Compose />`);
 
     assert.strictEqual(
-      this.element.querySelector('[data-test-input]').value,
+      this.element.querySelector('[data-test-compose-input]').value,
       '',
       'the input is initially empty'
     );
-
-
   });
 });

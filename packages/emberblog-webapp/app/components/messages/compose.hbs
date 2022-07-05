@@ -1,10 +1,10 @@
-<div class="messages-compose">
+<div data-test-compose class="messages-compose">
   <Input
-    data-test-input
+    data-test-compose-input
     @value={{this.draft}}
     placeholder="Send a message"
   />
   <aside>
-    <button data-test-button type="button" {{on "click" this.submit}}>Send</button>
+    <button data-test-compose-button type="button" {{on "click" this.submit}}>Send</button>
   </aside>
 </div>

@@ -1,21 +1,21 @@
-<div class="message">
-  <p data-test-sender>
+<div data-test-message class="message">
+  <p data-test-message-sender>
     {{@message.sender}}
   </p>
   <aside>
   {{#if this.editable}}
-    <Input data-test-content-input @value={{@message.content}} />
+    <Input data-test-message-content-input @value={{@message.content}} />
   {{else}}
-    <p data-test-content>
+    <p data-test-message-content>
       {{@message.content}}
     </p>
   {{/if}}
   </aside>
-  <LinkTo data-test-detailed-link class="button" @route="message" @model={{@message}}>Detailed</LinkTo>
-  <button data-test-delete-button type="button" {{on "click" this.delete}}>Delete</button>
+  <LinkTo data-test-message-detailed-link class="button" @route="message" @model={{@message}}>Detailed</LinkTo>
+  <button data-test-message-delete-button type="button" {{on "click" this.delete}}>Delete</button>
   {{#if this.editable}}
-    <button data-test-save-button type="button" {{on "click" this.update}}>Save</button>
+    <button data-test-message-save-button type="button" {{on "click" this.update}}>Save</button>
   {{else}}
-    <button data-test-edit-button type="button" {{on "click" (fn this.setEditable true)}}>Edit</button>
+    <button data-test-message-edit-button type="button" {{on "click" (fn this.setEditable true)}}>Edit</button>
   {{/if}}
 </div>
