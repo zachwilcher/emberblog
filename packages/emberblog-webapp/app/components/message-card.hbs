@@ -1,18 +1,34 @@
-<MdcCard class="standard" @outlined={{true}}>
+<MdcCard data-test-message class="standard" @outlined={{true}}>
 
-  {{#if this.editable}}
-    <MdcTextarea data-test-message-content-input @value={{@message.content}} />
-  {{else}}
-    {{@message.content}}
-  {{/if}}
+  <MdcCardContent>
+    <div data-test-message-sender>{{@message.sender}}</div>
+    {{#if this.editable}}
+      <MdcTextarea data-test-message-content-input @value={{@message.content}} />
+    {{else}}
+      <div data-test-message-content>{{@message.content}}</div>
+    {{/if}}
+  </MdcCardContent>
 
   <MdcCardActions>
-    <MdcCardActionButtonLinkTo @route="message" @model={{@message}}>Detailed</MdcCardActionButtonLinkTo>
+    <MdcCardActionButtonLinkTo
+      data-test-message-detailed-link
+      @route="message"
+      @model={{@message}}
+      @label="Detailed"/>
     {{#if this.editable}}
-      <MdcCardActionButton {{on "click" this.update}}>Save</MdcCardActionButton>
+      <MdcCardActionButton
+        data-test-message-save-button
+        @label="Save"
+        {{on "click" this.update}}/>
     {{else}}
-      <MdcCardActionButton {{on "click" (fn this.setEditable true)}}>Edit</MdcCardActionButton>
+      <MdcCardActionButton
+        data-test-message-edit-button
+        @label="Edit"
+        {{on "click" (fn this.setEditable true)}}/>
     {{/if}}
-    <MdcCardActionButton {{on "click" this.delete}}>Delete</MdcCardActionButton>
+    <MdcCardActionButton
+      data-test-message-delete-button
+      @label="Delete"
+      {{on "click" this.delete}}/>
   </MdcCardActions>
 </MdcCard>

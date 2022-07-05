@@ -1,26 +1,60 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { click, render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 
 module('Integration | Component | message-card', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders', async function (assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
+  hooks.beforeEach(function () {
+    let store = this.owner.lookup('service:store');
 
-    await render(hbs`<MessageCard />`);
+    let model = store.createRecord('message', {
+      sender: 'testing bot',
+      content: 'something that will not be here by coincidence',
+    });
 
-    assert.dom(this.element).hasText('');
+    this.setProperties({
+      message: model,
+    });
+  });
 
-    // Template block usage:
-    await render(hbs`
-      <MessageCard>
-        template block text
-      </MessageCard>
-    `);
+  test('it renders a message model', async function (assert) {
+    await render(hbs`<Message @message={{this.message}} />`);
 
-    assert.dom(this.element).hasText('template block text');
+    assert.strictEqual(
+      this.element
+        .querySelector('[data-test-message-sender]')
+        .textContent.trim(),
+      'testing bot',
+      'sender is correct'
+    );
+
+    assert.strictEqual(
+      this.element
+        .querySelector('[data-test-message-content]')
+        .textContent.trim(),
+      'something that will not be here by coincidence',
+      'content is correct'
+    );
+  });
+
+  test('the message content can be edited', async function (assert) {
+    await render(hbs`<Message @message={{this.message}} />`);
+
+    let editButton = this.element.querySelector(
+      '[data-test-message-edit-button]'
+    );
+    await click(editButton);
+
+    let contentInput = this.element.querySelector(
+      '[data-test-message-content-input]'
+    );
+    assert.dom(contentInput).exists();
+
+    assert.strictEqual(
+      contentInput.value,
+      'something that will not be here by coincidence'
+    );
   });
 });
