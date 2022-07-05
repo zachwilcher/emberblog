@@ -23,13 +23,17 @@ module('Integration | Component | message', function (hooks) {
     await render(hbs`<Message @message={{this.message}} />`);
 
     assert.strictEqual(
-      this.element.querySelector('[data-test-message-sender]').textContent.trim(),
+      this.element
+        .querySelector('[data-test-message-sender]')
+        .textContent.trim(),
       'testing bot',
       'sender is correct'
     );
 
     assert.strictEqual(
-      this.element.querySelector('[data-test-message-content]').textContent.trim(),
+      this.element
+        .querySelector('[data-test-message-content]')
+        .textContent.trim(),
       'something that will not be here by coincidence',
       'content is correct'
     );
@@ -38,10 +42,14 @@ module('Integration | Component | message', function (hooks) {
   test('the message content can be edited', async function (assert) {
     await render(hbs`<Message @message={{this.message}} />`);
 
-    let editButton = this.element.querySelector('[data-test-message-edit-button]');
+    let editButton = this.element.querySelector(
+      '[data-test-message-edit-button]'
+    );
     await click(editButton);
 
-    let contentInput = this.element.querySelector('[data-test-message-content-input]');
+    let contentInput = this.element.querySelector(
+      '[data-test-message-content-input]'
+    );
     assert.dom(contentInput).exists();
 
     assert.strictEqual(

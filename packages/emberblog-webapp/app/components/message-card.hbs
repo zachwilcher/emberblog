@@ -1,0 +1,18 @@
+<MdcCard class="standard" @outlined={{true}}>
+
+  {{#if this.editable}}
+    <MdcTextarea data-test-message-content-input @value={{@message.content}} />
+  {{else}}
+    {{@message.content}}
+  {{/if}}
+
+  <MdcCardActions>
+    <MdcCardActionButtonLinkTo @route="message" @model={{@message}}>Detailed</MdcCardActionButtonLinkTo>
+    {{#if this.editable}}
+      <MdcCardActionButton {{on "click" this.update}}>Save</MdcCardActionButton>
+    {{else}}
+      <MdcCardActionButton {{on "click" (fn this.setEditable true)}}>Edit</MdcCardActionButton>
+    {{/if}}
+    <MdcCardActionButton {{on "click" this.delete}}>Delete</MdcCardActionButton>
+  </MdcCardActions>
+</MdcCard>

@@ -15,7 +15,5 @@ module('Acceptance | emberblog', function (hooks) {
     assert.dom('[data-test-messages]').exists();
 
     assert.dom('[data-test-compose]').exists();
-
-
   });
 });
