@@ -24,6 +24,7 @@
   ],
   "devDependencies": {
     "@onehilltech/blueprint-cli": "^4.64.1",
-    "@onehilltech/blueprint-testing": "^4.64.1"
+    "@onehilltech/blueprint-testing": "^4.64.1",
+    "mocha": "^10.0.0"
   }
 }
