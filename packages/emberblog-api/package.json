@@ -9,9 +9,7 @@
     "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
   },
   "dependencies": {
-    "@onehilltech/blueprint": "^4.65.11",
-    "@onehilltech/blueprint-mongodb": "^4.65.12",
-    "cors": "^2.8.5",
+    "@onehilltech/blueprint-gatekeeper": "^4.65.12",
     "pug": "^2.0.3"
   },
   "license": "",
