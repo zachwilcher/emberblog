@@ -14,8 +14,10 @@ module.exports = Router.extend({
             })]
         },
         '/gatekeeper': blueprint.mount('@onehilltech/blueprint-gatekeeper:v1'),
+        /*
         '/api': {
             policy: 'gatekeeper.auth.bearer'
-        }
+        },
+         */
     }
 });
