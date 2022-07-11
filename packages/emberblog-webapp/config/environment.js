@@ -10,16 +10,25 @@ module.exports = function (environment) {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
         // e.g. EMBER_NATIVE_DECORATOR_SUPPORT: true
+
+        // This must be enabled for account adapter to work.
+        'ds-improved-ajax': true,
       },
       EXTEND_PROTOTYPES: {
         // Prevent Ember Data from overriding Date.parse.
         Date: false,
       },
     },
-
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
+    },
+    gatekeeper: {
+      baseUrl: 'http://localhost:8080/gatekeeper',
+      tokenOptions: {
+        client_id: '59ee923e1fd71c2ae68ade62',
+        client_secret: '1234567890',
+      },
     },
   };
 

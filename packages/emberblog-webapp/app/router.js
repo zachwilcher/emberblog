@@ -10,4 +10,6 @@ Router.map(function () {
   this.route('/');
   this.route('messages');
   this.route('message', { path: '/messages/:message_id' });
+  this.route('sign-in');
+  this.route('sign-up');
 });
