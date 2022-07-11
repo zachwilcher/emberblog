@@ -1,7 +1,8 @@
 const { model } = require ('@onehilltech/blueprint');
-const { ResourceController } = require('@onehilltech/blueprint-mongodb');
+const { UserResourceController } = require('@onehilltech/blueprint-gatekeeper');
 
-module.exports = ResourceController.extend({
+module.exports = UserResourceController.extend({
     name: 'message',
     Model: model('message'),
+    userPath: 'sender',
 });

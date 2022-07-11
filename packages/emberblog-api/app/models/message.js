@@ -2,13 +2,15 @@
 
 const mongodb = require ('@onehilltech/blueprint-mongodb');
 const { Schema } = mongodb;
+const { Types: { ref }} = Schema;
+
 
 const options = {
     // idk
 };
 
 const schema = new Schema({
-    sender: { type: String, trim: true, required: true },
+    sender: ref('account', {required: true, validation: { optional: true}}),
     content: { type: String }
 }, options);
 
