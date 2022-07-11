@@ -17,14 +17,8 @@ module.exports = Seed.extend({
                 },
                 {sender: dab.ref('accounts.2'), content: 'Test message please ignore.'}
             ],
-            native: [
-                {
-                    name: 'client0',
-                    email: 'client0@gatekeeper.com',
-                    client_secret: 'client0',
-                }
-            ],
-            user_tokens: dab.map(dab.get('accounts'), (account, i) => ({client: dab.ref('native.0'), account: account})),
+            native: dab.map(dab.get('accounts'), (account, i) => ({name: `client${i}`, email: `client${i}@gatekeeper.com`, client_secret: `client${i}`})),
+            user_tokens: dab.map(dab.get('accounts'), (account, i) => ({client: dab.ref(`native.${i}`), account: account})),
         };
     }
 });

@@ -5,47 +5,35 @@ const { env } = require ('@onehilltech/blueprint');
 module.exports = Router.extend({
     specification: {
         '/messages': {
-
             use: [cors({
                 origin: env !== 'production' ? true : null
             })],
-            /*
-            resource: {
-                controller: 'message'
-            },
-             */
             post: {
                 action: 'message@create',
-                policy: 'gatekeeper.auth.bearer',
+                policy: 'gatekeeper.auth.bearer'
             },
-
             get: {
                 action: 'message@getAll'
             },
-
             '/:messageId': {
                 get: {
                     action: 'message@getOne'
                 },
-
                 put: {
                     action: 'message@update',
-                    policy: check('gatekeeper.resource.owner', 'messageId', 'message@sender')
+                    policy: 'messageOwner'
                 },
-
                 delete: {
                     action: 'message@delete',
-                    policy: check('gatekeeper.resource.owner', 'messageId', 'message@sender')
+                    // why does this not work? check('gatekeeper.resource.owner', 'messageId', 'message@sender')
+                    policy: 'messageOwner'
                 }
-
-
             },
-
             '/count': {
                 get: {
-                    action: 'message@count'
-                }
-            }
+                    action: 'message@count',
+                },
+            },
         }
     }
 });
