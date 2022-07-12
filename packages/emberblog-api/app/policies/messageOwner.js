@@ -1,29 +1,20 @@
-const { Policy, UnauthorizedError } = require ('@onehilltech/blueprint');
-const blueprint = require ('@onehilltech/blueprint');
+const { Policy } = require ('@onehilltech/blueprint');
+const Model = require('../models/message');
 
-
-//gatekeeper.resource.owner but hardcoded in message stuff
+// gatekeeper.resource.owner but hardcoded in message stuff
+// Isn't this: ``` check('gatekeeper.resource.owner', 'messageId', 'message@sender') ``` what I want?
 
 module.exports = Policy.extend({
 
     failureCode: 'invalid_owner',
 
-    failureMessage: 'You are not the owner of the resource.',
+    failureMessage: 'You are not the owner of the message.',
 
-    _Model: null,
-
-    init() {
-        this._super.call (this, ...arguments);
-
-        this._Model = blueprint.lookup('model:message');
-
-    },
     runCheck(req) {
-        const _id = req.params['messageId'];
 
-        const selection = { _id, 'sender': req.user._id };
-        console.log(req.user);
+        // where _id == req.params['messageId'] and sender == req.user._id
+        const selection = { '_id': req.params['messageId'], 'sender': req.user._id };
 
-        return this._Model.findOne (selection).then (model => !!model);
+        return Model.findOne (selection).then (model => !!model);
     }
 });

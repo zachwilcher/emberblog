@@ -9,6 +9,7 @@ const { request } = require ('@onehilltech/blueprint-testing');
 
 /**
  * Tests if 2 messages are equal
+ * @param checkId whether or not to use the message's id in equality check ie. as long as everything else is equal the messages are equal
  */
 function messagesEqual(message1, message2, checkId=true) {
     return (!checkId || (String(message1._id) === String(message2._id))) &&
@@ -18,7 +19,19 @@ function messagesEqual(message1, message2, checkId=true) {
 describe ('app | routers | api | message', function () {
 
 
-    it ('should create a message', async function () {
+    it('you must be authenticated in order to create a message', async function() {
+        const message = {
+            content: 'This is a dummy message.'
+        };
+
+        await request ()
+            .post ('/api/messages')
+            .send ({ message })
+            .expect(400, { errors: [{ code: 'missing_token', detail: 'The access token is missing.', status: '400' }]});
+
+    });
+
+    it ('a user should be able to create a message', async function () {
 
         const message = {
             content: 'This is a dummy message.'
@@ -33,7 +46,7 @@ describe ('app | routers | api | message', function () {
             });
     });
 
-    it('should get all messages', async function() {
+    it('anyone should be able to get all messages', async function() {
         const { messages: seededMessages } = seed();
 
 
@@ -45,7 +58,7 @@ describe ('app | routers | api | message', function () {
             });
     });
 
-    it('should get any message', async function() {
+    it('anyone should be able to get any message', async function() {
 
         const { messages: seededMessages } = seed();
         assert(seededMessages.length > 0, 'There must be seeded messages in the database for this test to work!');
@@ -59,7 +72,7 @@ describe ('app | routers | api | message', function () {
 
     });
 
-    it("user should be able to update their message's content", async function() {
+    it("a user should be able to update their message's content", async function() {
         const { messages: seededMessages } = seed();
         assert(seededMessages.length > 0, 'There must be seeded messages in the database for this test to work!');
         const seededMessage = seededMessages[0];
@@ -69,13 +82,15 @@ describe ('app | routers | api | message', function () {
             .put(`/api/messages/${seededMessage._id}`)
             .withUserToken(0)
             .send({message: {content: newContent}})
-            .expect(200)
+            //.expect(200)
             .expect(res => {
+                //TODO temporary console.log and commented out .expect(200) above to see what is in the body more easily
+                console.log(res.body);
                 assert(res.body.message.content === newContent, 'content is updated');
             });
     });
 
-    it("user should not be able to update another user's message", async function() {
+    it("a user should not be able to update another user's message", async function() {
         const { messages: seededMessages } = seed();
         assert(seededMessages.length > 0, 'There must be seeded messages in the database for this test to work!');
         const seededMessage = seededMessages[0];
@@ -85,37 +100,39 @@ describe ('app | routers | api | message', function () {
             .put(`/api/messages/${seededMessage._id}`)
             .withUserToken(1)
             .send({message: {content: newContent}})
-            //.expect(403)
-            .expect(res => {
-                console.log(res.body);
-            });
+            .expect(403);
     });
 
 
-    it('user should be able to delete their own message', async function() {
-        const { messages: seededMessages } = seed();
-        assert(seededMessages.length > 0, 'There must be seeded messages in the database for this test to work!');
-        const seededMessage = seededMessages[0];
-
-        await request()
-                .delete(`/api/messages/${seededMessage._id}`)
-                .withUserToken(0).expect(200);
-        await request()
-                .get(`/api/messages/${seededMessage._id}`).expect(404);
-
-    });
-
-    it("user should not be able to delete another user's message", async function() {
+    it('a user should be able to delete their own message', async function() {
         const { messages: seededMessages } = seed();
         assert(seededMessages.length > 0, 'There must be seeded messages in the database for this test to work!');
         const seededMessage = seededMessages[0];
 
         await request()
             .delete(`/api/messages/${seededMessage._id}`)
-            .withUserToken(1).expect(403);
+            .withUserToken(0)
+            .expect(200);
 
         await request()
-            .get(`/api/messages/${seededMessage._id}`).expect(200);
+            .get(`/api/messages/${seededMessage._id}`)
+            .expect(404);
+
+    });
+
+    it("a user should not be able to delete another user's message", async function() {
+        const { messages: seededMessages } = seed();
+        assert(seededMessages.length > 0, 'There must be seeded messages in the database for this test to work!');
+        const seededMessage = seededMessages[0];
+
+        await request()
+            .delete(`/api/messages/${seededMessage._id}`)
+            .withUserToken(1)
+            .expect(403);
+
+        await request()
+            .get(`/api/messages/${seededMessage._id}`)
+            .expect(200);
 
     });
 
