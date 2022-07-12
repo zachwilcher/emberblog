@@ -3,7 +3,6 @@ import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 
 export default class SignOutComponent extends Component {
-
   @service session;
   @service router;
 
@@ -12,5 +11,4 @@ export default class SignOutComponent extends Component {
     await this.session.signOut();
     this.router.replaceRoute('/');
   }
-
 }

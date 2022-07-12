@@ -10,7 +10,6 @@ export default class MessagesComposeComponent extends Component {
 
   @action submit() {
     let record = this.store.createRecord('message', {
-      sender: 'localhost',
       content: this.draft,
     });
     record.save();

@@ -1,2 +1,4 @@
 <Messages @messages={{@model}} />
-<Messages::Compose />
+{{#if this.session.isSignedIn}}
+  <Messages::Compose />
+{{/if}}
