@@ -13,10 +13,14 @@
   </aside>
   <MdcButtonLinkTo data-test-message-detailed-link @route="message" @model={{@message}} @label="Detailed" />
 
-  <MdcButton data-test-message-delete-button @label="Delete" {{on "click" this.delete}} />
-  {{#if this.editable}}
-    <MdcButton data-test-message-save-button @label="Save" {{on "click" this.update}} />
-  {{else}}
-    <MdcButton data-test-message-edit-button @label="Edit" {{on "click" (fn this.setEditable true)}} />
+  {{#if this.canDelete}}
+    <MdcButton data-test-message-delete-button @label="Delete" {{on "click" this.delete}} />
+  {{/if}}
+  {{#if this.canEdit}}
+    {{#if this.editable}}
+      <MdcButton data-test-message-save-button @label="Save" {{on "click" this.update}} />
+    {{else}}
+      <MdcButton data-test-message-edit-button @label="Edit" {{on "click" (fn this.setEditable true)}} />
+    {{/if}}
   {{/if}}
 </div>

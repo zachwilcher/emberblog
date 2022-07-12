@@ -5,8 +5,22 @@ import { tracked } from '@glimmer/tracking';
 
 export default class MessageComponent extends Component {
   @service store;
+  @service session;
 
   @tracked editable;
+
+
+  get isSender() {
+    return this.session.userId === this.args.message.sender;
+  }
+
+  get canDelete() {
+    return this.isSender;
+  }
+
+  get canEdit() {
+    return this.isSender;
+  }
 
   @action setEditable(value) {
     this.editable = !!value;

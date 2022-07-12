@@ -15,20 +15,24 @@
       @route="message"
       @model={{@message}}
       @label="Detailed"/>
-    {{#if this.editable}}
-      <MdcCardActionButton
-        data-test-message-save-button
-        @label="Save"
-        {{on "click" this.update}}/>
-    {{else}}
-      <MdcCardActionButton
-        data-test-message-edit-button
-        @label="Edit"
-        {{on "click" (fn this.setEditable true)}}/>
+    {{#if this.canEdit}}
+      {{#if this.editable}}
+        <MdcCardActionButton
+          data-test-message-save-button
+          @label="Save"
+          {{on "click" this.update}}/>
+      {{else}}
+        <MdcCardActionButton
+          data-test-message-edit-button
+          @label="Edit"
+          {{on "click" (fn this.setEditable true)}}/>
+      {{/if}}
     {{/if}}
+    {{#if this.canDelete}}
     <MdcCardActionButton
       data-test-message-delete-button
       @label="Delete"
       {{on "click" this.delete}}/>
+    {{/if}}
   </MdcCardActions>
 </MdcCard>
