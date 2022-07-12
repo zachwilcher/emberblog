@@ -1,4 +1,4 @@
-const { Router, policies: { all } } = require('@onehilltech/blueprint');
+const { Router, policies: { all, check } } = require('@onehilltech/blueprint');
 const {cors} = require("@onehilltech/blueprint-gatekeeper");
 const { env } = require ('@onehilltech/blueprint');
 
@@ -21,11 +21,11 @@ module.exports = Router.extend({
                 },
                 put: {
                     action: 'message@update',
-                    policy: 'messageOwner'
+                    policy: all.ordered(['gatekeeper.auth.bearer', check('gatekeeper.resource.owner', 'messageId', 'message@sender')])
                 },
                 delete: {
                     action: 'message@delete',
-                    policy: 'messageOwner'
+                    policy: all.ordered(['gatekeeper.auth.bearer', check('gatekeeper.resource.owner', 'messageId', 'message@sender')])
                 }
             },
             '/count': {
