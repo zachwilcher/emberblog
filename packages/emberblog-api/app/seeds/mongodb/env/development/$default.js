@@ -10,6 +10,7 @@ module.exports = Seed.extend({
                     name: 'native1',
                     email: 'native1@onehilltech.com',
                     enabled: true,
+                    scope: ['gatekeeper.account.create'],
                     origin: 'http://localhost:4200',
                     client_secret: '1234567890'
                 }
