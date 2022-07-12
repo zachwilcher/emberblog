@@ -1,5 +1,5 @@
 const { Router, policies: { check } } = require('@onehilltech/blueprint');
-const { cors } = require("@onehilltech/blueprint-gatekeeper");
+const {cors} = require("@onehilltech/blueprint-gatekeeper");
 const { env } = require ('@onehilltech/blueprint');
 
 module.exports = Router.extend({
